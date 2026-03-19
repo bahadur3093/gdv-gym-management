@@ -1,0 +1,94 @@
+.shell {
+  min-height: 100dvh;
+  position: relative;
+}
+
+.main {
+  padding-bottom: 100px;
+}
+
+/* ── Floating nav wrapper ─────────────────────────────────── */
+.nav {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 448px;
+  z-index: 100;
+}
+
+.navInner {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px 8px 10px;
+  box-shadow: var(--nav-shadow);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  height: 64px;
+}
+
+/* ── Nav item ─────────────────────────────────────────────── */
+.navItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background: none;
+  border: none;
+  padding: 0 4px;
+  position: relative;
+  height: 44px;
+  transition: all 0.25s cubic-bezier(.4, 0, .2, 1);
+}
+
+.iconWrap {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  font-size: 20px;
+  position: absolute;
+  bottom: 0;
+  opacity: 0.4;
+  transition: all 0.35s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.navLabel {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  position: absolute;
+  bottom: -1px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* ── Active state — icon pops up out of bar ───────────────── */
+.active .iconWrap {
+  background: var(--accent);
+  bottom: 28px;
+  width: 48px;
+  height: 48px;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0, 229, 160, 0.45);
+  font-size: 22px;
+  opacity: 1;
+}
+
+.active .navLabel {
+  opacity: 1;
+}
+
+.navItem:not(.active):hover .iconWrap {
+  opacity: 0.65;
+  background: var(--bg3);
+}

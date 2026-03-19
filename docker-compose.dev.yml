@@ -1,0 +1,59 @@
+version: '3.9'
+
+# ── HOW THIS WORKS ───────────────────────────────────────────────────────────
+# 1. You have ONE .env file at the project root
+# 2. docker-compose reads that .env automatically
+# 3. Each service below picks up only the vars it needs
+# 4. No .env files inside frontend/ or backend/ folders needed
+#
+# Start dev:  docker-compose -f docker-compose.dev.yml up
+# Stop:       docker-compose -f docker-compose.dev.yml down
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./backend:/app        # your local files mount into the container
+      - /app/node_modules     # container keeps its own node_modules (don't overwrite)
+    environment:
+      # Backend vars — pulled from root .env
+      - NODE_ENV=development
+      - PORT=4000
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_SERVICE_KEY=${SUPABASE_SERVICE_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+      - FCM_PROJECT_ID=${FCM_PROJECT_ID}
+      - FCM_CLIENT_EMAIL=${FCM_CLIENT_EMAIL}
+      - FCM_PRIVATE_KEY=${FCM_PRIVATE_KEY}
+      - SOCIETY_UPI_ID=${SOCIETY_UPI_ID}
+      - SOCIETY_NAME=${SOCIETY_NAME}
+      - GYM_FEE_AMOUNT=${GYM_FEE_AMOUNT}
+      - FRONTEND_URL=${FRONTEND_URL}
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      # Frontend vars — VITE_ prefix is required, pulled from root .env
+      - VITE_API_URL=${VITE_API_URL}
+      - VITE_FCM_API_KEY=${VITE_FCM_API_KEY}
+      - VITE_FCM_AUTH_DOMAIN=${VITE_FCM_AUTH_DOMAIN}
+      - VITE_FCM_PROJECT_ID=${VITE_FCM_PROJECT_ID}
+      - VITE_FCM_MESSAGING_SENDER_ID=${VITE_FCM_MESSAGING_SENDER_ID}
+      - VITE_FCM_APP_ID=${VITE_FCM_APP_ID}
+      - VITE_FCM_VAPID_KEY=${VITE_FCM_VAPID_KEY}
+    depends_on:
+      - backend
+    restart: unless-stopped

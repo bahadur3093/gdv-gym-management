@@ -1,0 +1,74 @@
+.inner { max-width: 480px; margin: 0 auto; }
+
+.feeBadge {
+  background: rgba(0,229,160,0.12);
+  border: 1px solid rgba(0,229,160,0.3);
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-size: 13px; font-weight: 700;
+  color: var(--accent);
+}
+
+.statusBanner {
+  margin: 0 20px 16px;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex; align-items: flex-start; gap: 14px;
+  border: 1px solid;
+}
+.paid    { background: rgba(0,229,160,0.07); border-color: rgba(0,229,160,0.2); }
+.pending { background: rgba(255,181,71,0.07); border-color: rgba(255,181,71,0.25); }
+.due     { background: rgba(255,92,92,0.06); border-color: rgba(255,92,92,0.2); }
+
+.statusIcon {
+  width: 44px; height: 44px;
+  border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.paidIcon    { background: rgba(0,229,160,0.15); }
+.pendingIcon { background: rgba(255,181,71,0.15); }
+.dueIcon     { background: rgba(255,92,92,0.12); }
+
+.statusTitle { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+.statusSub   { font-size: 12px; color: var(--text2); line-height: 1.4; }
+
+.sectionHead { padding: 0 20px 12px; }
+
+.historyItem {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px;
+}
+.historyIcon {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.historyInfo { flex: 1; }
+.historyMonth { font-size: 14px; font-weight: 500; }
+.historyUtr   { font-size: 11px; color: var(--text3); font-family: monospace; margin-top: 2px; }
+.historyAmount { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: var(--accent); }
+
+.empty { padding: 24px; text-align: center; font-size: 14px; color: var(--text2); }
+
+/* Sheet */
+.sheetTitle { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.sheetSub   { font-size: 13px; color: var(--text2); margin-bottom: 24px; line-height: 1.5; }
+
+.step {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 16px;
+}
+.stepNum {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  border: 1px solid rgba(0,229,160,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0; margin-top: 2px;
+}
+.stepText { font-size: 13px; color: var(--text2); line-height: 1.5; padding-top: 4px; }
