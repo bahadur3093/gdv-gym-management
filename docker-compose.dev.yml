@@ -1,15 +1,5 @@
 version: '3.9'
 
-# ── HOW THIS WORKS ───────────────────────────────────────────────────────────
-# 1. You have ONE .env file at the project root
-# 2. docker-compose reads that .env automatically
-# 3. Each service below picks up only the vars it needs
-# 4. No .env files inside frontend/ or backend/ folders needed
-#
-# Start dev:  docker-compose -f docker-compose.dev.yml up
-# Stop:       docker-compose -f docker-compose.dev.yml down
-# ─────────────────────────────────────────────────────────────────────────────
-
 services:
   backend:
     build:
@@ -18,10 +8,9 @@ services:
     ports:
       - '4000:4000'
     volumes:
-      - ./backend:/app        # your local files mount into the container
-      - /app/node_modules     # container keeps its own node_modules (don't overwrite)
+      - ./backend:/app
+      - /app/node_modules
     environment:
-      # Backend vars — pulled from root .env
       - NODE_ENV=development
       - PORT=4000
       - SUPABASE_URL=${SUPABASE_URL}
@@ -46,7 +35,6 @@ services:
       - ./frontend:/app
       - /app/node_modules
     environment:
-      # Frontend vars — VITE_ prefix is required, pulled from root .env
       - VITE_API_URL=${VITE_API_URL}
       - VITE_FCM_API_KEY=${VITE_FCM_API_KEY}
       - VITE_FCM_AUTH_DOMAIN=${VITE_FCM_AUTH_DOMAIN}

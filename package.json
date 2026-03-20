@@ -1,13 +1,14 @@
 {
   "name": "society-gym",
-  "version": "1.0.0",
-  "description": "Society gym management app — monorepo root",
+  "version": "2.0.0",
+  "description": "Society gym management app",
   "private": true,
   "scripts": {
     "predev": "kill-port 4000 5173",
     "dev": "concurrently --names \"BACKEND,FRONTEND\" --prefix-colors \"cyan,magenta\" \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
     "install:all": "npm install --prefix backend && npm install --prefix frontend",
-    "setup": "npm run install:all && echo '\\n✅ Done! Now fill in your .env then run: npm run dev'"
+    "setup": "npm run install:all && echo '\\n✅ Done! Fill in .env then run: npm run dev'",
+    "typecheck": "npm run typecheck --prefix backend && npm run typecheck --prefix frontend"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

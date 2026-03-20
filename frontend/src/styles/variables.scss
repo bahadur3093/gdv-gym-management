@@ -1,0 +1,65 @@
+// ── Colours ────────────────────────────────────────────────────
+$accent:      #00E5A0;
+$accent2:     #00C8FF;
+$accent-dim:  rgba(0, 229, 160, 0.12);
+$danger:      #FF5C5C;
+$warn:        #FFB547;
+
+// ── Radii ──────────────────────────────────────────────────────
+$radius-sm:   10px;
+$radius-md:   14px;
+$radius-lg:   20px;
+$radius-xl:   28px;
+
+// ── Transitions ────────────────────────────────────────────────
+$transition:  0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+// ── Light theme ────────────────────────────────────────────────
+$light-bg:    #F2F5FA;
+$light-bg2:   #FFFFFF;
+$light-bg3:   #EAF0F9;
+$light-text:  #0D1117;
+$light-text2: #5A6478;
+$light-text3: #9AA3B8;
+
+// ── Dark theme ─────────────────────────────────────────────────
+$dark-bg:     #0D1117;
+$dark-bg2:    #161C26;
+$dark-bg3:    #1E2636;
+$dark-text:   #F0F4FF;
+$dark-text2:  #8A95B0;
+$dark-text3:  #505A72;
+
+// ── Mixins ─────────────────────────────────────────────────────
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: $radius-lg;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: background $transition;
+}
+
+@mixin badge($bg, $color) {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 9px;
+  border-radius: 7px;
+  text-transform: uppercase;
+  background: $bg;
+  color: $color;
+}
