@@ -46,7 +46,7 @@ export default function WatchmanPage() {
           style={{ background: 'var(--bg2)', border: '1px solid var(--border)', boxShadow: 'var(--shadow)' }}>
           <div className="flex items-center justify-between mb-4">
             <div>
-              <div className="font-[Syne] text-2xl font-extrabold" style={{ color: 'var(--accent)' }}>
+              <div className="text-2xl font-extrabold" style={{ color: 'var(--accent)' }}>
                 {currentlyIn?.count ?? 0}
               </div>
               <div className="text-sm mt-0.5" style={{ color: 'var(--text2)' }}>
@@ -90,11 +90,11 @@ export default function WatchmanPage() {
 
         {/* Report issue button */}
         <div className="px-6 mb-3">
-          <span className="font-[Syne] text-base font-bold" style={{ color: 'var(--text)' }}>Maintenance</span>
+          <span className="text-base font-bold" style={{ color: 'var(--text)' }}>Maintenance</span>
         </div>
         <div className="px-6">
           <button onClick={() => setSheetOpen(true)}
-            className="w-full rounded-[14px] py-4 font-[Syne] text-sm font-bold transition-all flex items-center justify-center gap-2"
+            className="w-full rounded-[14px] py-4 text-sm font-bold transition-all flex items-center justify-center gap-2"
             style={{ background: 'var(--bg3)', border: '1.5px dashed rgba(0,229,160,0.35)', color: 'var(--accent)' }}>
             ＋ Report equipment issue
           </button>
@@ -103,7 +103,7 @@ export default function WatchmanPage() {
 
       {/* Report issue sheet */}
       <BottomSheet open={sheetOpen} onClose={() => setSheetOpen(false)}>
-        <h2 className="font-[Syne] text-xl font-bold mb-1.5">Report an issue</h2>
+        <h2 className="text-xl font-bold mb-1.5">Report an issue</h2>
         <p className="text-sm mb-6" style={{ color: 'var(--text2)' }}>
           Describe the problem so admin can fix it quickly.
         </p>
@@ -152,7 +152,7 @@ export default function WatchmanPage() {
         </div>
 
         <button onClick={handleReport} disabled={!form.title || !form.description || submitting}
-          className="w-full rounded-[14px] py-4 font-[Syne] text-sm font-bold transition-all flex items-center justify-center gap-2"
+          className="w-full rounded-[14px] py-4 text-sm font-bold transition-all flex items-center justify-center gap-2"
           style={{ background: 'var(--accent)', color: '#0D1117', opacity: form.title && form.description ? 1 : 0.4 }}>
           {submitting ? <span className="spinner w-5 h-5" /> : 'Submit issue'}
         </button>

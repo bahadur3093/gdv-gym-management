@@ -155,7 +155,7 @@ export default function AdminPage() {
             {pendingMembers.length === 0 && pending.length === 0 && (
               <div className="text-center py-10">
                 <div className="text-5xl mb-3">✅</div>
-                <div className="font-[Syne] text-base font-bold" style={{ color: 'var(--text)' }}>All caught up!</div>
+                <div className="text-base font-bold" style={{ color: 'var(--text)' }}>All caught up!</div>
                 <div className="text-sm mt-1" style={{ color: 'var(--text2)' }}>No pending approvals</div>
               </div>
             )}
@@ -170,7 +170,7 @@ export default function AdminPage() {
               : pendingMembers.map((m, i) => (
                   <div key={m.id} className="flex items-center gap-3 px-4 py-3.5"
                     style={{ borderBottom: i < pendingMembers.length - 1 ? '1px solid var(--border)' : 'none' }}>
-                    <div className="w-11 h-11 rounded-[13px] flex items-center justify-center font-[Syne] font-bold text-sm flex-shrink-0"
+                    <div className="w-11 h-11 rounded-[13px] flex items-center justify-center font-bold text-sm flex-shrink-0"
                       style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--accent)' }}>
                       {m.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                     </div>
@@ -276,7 +276,7 @@ export default function AdminPage() {
                 : records.map((r, i) => (
                     <div key={i} className="flex items-center gap-3 px-4 py-3"
                       style={{ borderBottom: i < records.length - 1 ? '1px solid var(--border)' : 'none' }}>
-                      <div className="w-9 h-9 rounded-xl flex items-center justify-center font-[Syne] font-bold text-xs flex-shrink-0"
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs flex-shrink-0"
                         style={{ background: 'var(--bg3)', color: 'var(--accent)' }}>
                         {r.members?.name?.split(' ').map(n => n[0]).join('').slice(0, 2)}
                       </div>

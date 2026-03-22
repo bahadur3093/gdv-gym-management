@@ -118,17 +118,17 @@ export default function HomePage() {
             </span>
             <span className="text-xl">🏋️</span>
           </div>
-          <div className="mt-3 mb-1 font-[Syne] text-xl font-bold text-white">{user?.name}</div>
+          <div className="mt-3 mb-1 text-xl font-bold text-white">{user?.name}</div>
           <div className="text-sm mb-[18px]" style={{ color: 'rgba(255,255,255,0.5)' }}>
             Villa {user?.flat_number}{user?.tower ? ` · Zone ${user.tower}` : ''}
           </div>
           <div className="flex justify-between items-end">
             <div>
               <div className="text-[11px] mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>NEXT DUE</div>
-              <div className="font-[Syne] text-sm font-bold" style={{ color: '#FFB547' }}>{nextDue}</div>
+              <div className="text-sm font-bold" style={{ color: '#FFB547' }}>{nextDue}</div>
             </div>
             <div className="text-right">
-              <div className="font-[Syne] text-[28px] font-extrabold leading-none" style={{ color: '#00E5A0' }}>
+              <div className="text-[28px] font-extrabold leading-none" style={{ color: '#00E5A0' }}>
                 {user?.current_streak ?? 0}
               </div>
               <div className="text-[11px]" style={{ color: 'rgba(255,255,255,0.4)' }}>day streak 🔥</div>
@@ -161,7 +161,7 @@ export default function HomePage() {
                 <button
                   onClick={handleCheckOut}
                   disabled={actioning}
-                  className="w-full rounded-[14px] py-4 font-[Syne] text-sm font-bold transition-all duration-200 flex items-center justify-content-center gap-2 justify-center"
+                  className="w-full rounded-[14px] py-4 text-sm font-bold transition-all duration-200 flex items-center justify-content-center gap-2 justify-center"
                   style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--text)' }}>
                   {actioning ? <span className="spinner w-5 h-5" /> : '🚪 Check out'}
                 </button>
@@ -170,7 +170,7 @@ export default function HomePage() {
               <button
                 onClick={handleCheckIn}
                 disabled={actioning}
-                className="w-full rounded-[14px] py-4 font-[Syne] text-base font-bold transition-all duration-200 flex items-center justify-center gap-2 hover:-translate-y-0.5"
+                className="w-full rounded-[14px] py-4 text-base font-bold transition-all duration-200 flex items-center justify-center gap-2 hover:-translate-y-0.5"
                 style={{ background: 'var(--accent)', color: '#0D1117', boxShadow: '0 4px 20px rgba(0,229,160,0.3)' }}>
                 {actioning ? <span className="spinner w-5 h-5" /> : '📍 Check in to gym'}
               </button>
@@ -184,7 +184,7 @@ export default function HomePage() {
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--accent)' }} />
-                <span className="font-[Syne] text-sm font-bold" style={{ color: 'var(--text)' }}>
+                <span className="text-sm font-bold" style={{ color: 'var(--text)' }}>
                   {currentlyIn!.count} {currentlyIn!.count === 1 ? 'person' : 'people'} in gym
                 </span>
               </div>
@@ -223,7 +223,7 @@ export default function HomePage() {
         {isMember && (
           <>
             <div className="mb-3">
-              <span className="font-[Syne] text-base font-bold" style={{ color: 'var(--text)' }}>Quick actions</span>
+              <span className="text-base font-bold" style={{ color: 'var(--text)' }}>Quick actions</span>
             </div>
             <div className="grid grid-cols-2 gap-2.5 pb-5">
               {qaItems.map(item => (
@@ -231,9 +231,9 @@ export default function HomePage() {
                   className="rounded-[14px] p-4 cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
                   style={{ background: 'var(--bg2)', border: '1px solid var(--border)', boxShadow: 'var(--shadow)' }}>
                   <div className="text-2xl mb-2.5">{item.icon}</div>
-                  <div className="font-[Syne] text-sm font-bold mb-0.5" style={{ color: 'var(--text)' }}>{item.title}</div>
+                  <div className="text-sm font-bold mb-0.5" style={{ color: 'var(--text)' }}>{item.title}</div>
                   <div className="text-[11px] mb-2.5" style={{ color: 'var(--text2)' }}>{item.sub}</div>
-                  <div className="font-[Syne] text-[22px] font-extrabold" style={{ color: item.color }}>{item.val}</div>
+                  <div className="text-[22px] font-extrabold" style={{ color: item.color }}>{item.val}</div>
                 </div>
               ))}
             </div>

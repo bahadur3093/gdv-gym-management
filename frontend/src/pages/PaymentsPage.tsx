@@ -156,7 +156,7 @@ export default function PaymentsPage() {
                     Total paid
                   </div>
                   <div
-                    className="font-[Syne] text-xl font-extrabold"
+                    className="text-xl font-extrabold"
                     style={{ color: "var(--accent)" }}
                   >
                     {fmt(summary.totalPaid)}
@@ -176,7 +176,7 @@ export default function PaymentsPage() {
                     Outstanding
                   </div>
                   <div
-                    className="font-[Syne] text-xl font-extrabold"
+                    className="text-xl font-extrabold"
                     style={{
                       color:
                         summary.totalOutstanding > 0
@@ -218,7 +218,7 @@ export default function PaymentsPage() {
                           <span className="text-sm font-semibold">{year}</span>
                           <div className="flex items-center gap-2">
                             <span
-                              className="font-[Syne] font-bold text-sm"
+                              className="font-bold text-sm"
                               style={{ color: "var(--accent)" }}
                             >
                               {fmt(total)}
@@ -296,7 +296,7 @@ export default function PaymentsPage() {
             <div className="text-3xl">💰</div>
             <div>
               <div
-                className="font-[Syne] text-base font-bold"
+                className="text-base font-bold"
                 style={{ color: "var(--warn)" }}
               >
                 {fmt(duesData!.totalOutstanding)} outstanding
@@ -313,7 +313,7 @@ export default function PaymentsPage() {
         {/* Dues calendar */}
         <div className="mb-3">
           <span
-            className="font-[Syne] text-base font-bold"
+            className="text-base font-bold"
             style={{ color: "var(--text)" }}
           >
             Month-wise
@@ -343,7 +343,7 @@ export default function PaymentsPage() {
                       <div className="text-2xl">{cfg.icon}</div>
                       <div className="flex-1">
                         <div
-                          className="font-[Syne] text-sm font-bold"
+                          className="text-sm font-bold"
                           style={{ color: "var(--text)" }}
                         >
                           {month.label}
@@ -373,7 +373,7 @@ export default function PaymentsPage() {
                           .length === 0 && (
                           <button
                             onClick={() => openPaySheet(month)}
-                            className="rounded-xl px-3 py-2 font-[Syne] text-xs font-bold transition-all hover:opacity-80 flex-shrink-0"
+                            className="rounded-xl px-3 py-2 text-xs font-bold transition-all hover:opacity-80 flex-shrink-0"
                             style={{
                               background: "var(--accent)",
                               color: "#0D1117",
@@ -390,7 +390,7 @@ export default function PaymentsPage() {
 
       {/* Payment sheet */}
       <BottomSheet open={sheetOpen} onClose={() => setSheetOpen(false)}>
-        <h2 className="font-[Syne] text-xl font-bold mb-1.5">
+        <h2 className="text-xl font-bold mb-1.5">
           Pay {selectedMonth?.label}
         </h2>
         <p className="text-sm mb-6" style={{ color: "var(--text2)" }}>
@@ -499,7 +499,7 @@ export default function PaymentsPage() {
         ].map((s) => (
           <div key={s.n} className="flex items-start gap-3 mb-4">
             <div
-              className="w-[26px] h-[26px] rounded-full flex items-center justify-center font-[Syne] text-xs font-bold flex-shrink-0 mt-0.5"
+              className="w-[26px] h-[26px] rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
               style={{
                 background: "var(--accent-dim)",
                 border: "1px solid rgba(0,229,160,0.3)",
@@ -516,7 +516,7 @@ export default function PaymentsPage() {
 
         <button
           onClick={handleOpenUPI}
-          className="w-full rounded-[14px] py-3.5 font-[Syne] text-sm font-bold mb-4 transition-all hover:opacity-80 flex items-center justify-center gap-2"
+          className="w-full rounded-[14px] py-3.5 text-sm font-bold mb-4 transition-all hover:opacity-80 flex items-center justify-center gap-2"
           style={{
             background: "var(--bg3)",
             border: "1px solid var(--border)",
@@ -562,7 +562,7 @@ export default function PaymentsPage() {
             submitting ||
             (useCustom && (!amount || !reason.trim()))
           }
-          className="w-full rounded-[14px] py-4 font-[Syne] text-sm font-bold transition-all flex items-center justify-center gap-2"
+          className="w-full rounded-[14px] py-4 text-sm font-bold transition-all flex items-center justify-center gap-2"
           style={{
             background: "var(--accent)",
             color: "#0D1117",
