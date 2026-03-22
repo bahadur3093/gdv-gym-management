@@ -12,15 +12,12 @@ import PaymentsPage     from '@/pages/PaymentsPage'
 import MaintenancePage  from '@/pages/MaintenancePage'
 import ProfilePage      from '@/pages/ProfilePage'
 import AdminPage        from '@/pages/AdminPage'
+import WatchmanPage     from '@/pages/WatchmanPage'
 import Layout           from '@/components/Layout'
 
 function FullScreenLoader() {
   return (
-    <div style={{
-      minHeight: '100dvh', display: 'flex',
-      alignItems: 'center', justifyContent: 'center',
-      background: 'var(--bg)',
-    }}>
+    <div style={{ minHeight: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
       <div className="spinner" style={{ width: 32, height: 32 }} />
     </div>
   )
@@ -38,7 +35,6 @@ function PublicRoute({ children }: { children: ReactNode }) {
   return user ? <Navigate to="/" replace /> : <>{children}</>
 }
 
-// Listens for FCM foreground messages and shows as toasts
 function ForegroundNotifications() {
   const { showToast } = useToast()
   const { user }      = useAuth()
@@ -73,6 +69,7 @@ export default function App() {
                 <Route path="/maintenance" element={<MaintenancePage />} />
                 <Route path="/profile"     element={<ProfilePage />} />
                 <Route path="/admin"       element={<AdminPage />} />
+                <Route path="/watchman"    element={<WatchmanPage />} />
               </Route>
 
               <Route path="*" element={<Navigate to="/" replace />} />

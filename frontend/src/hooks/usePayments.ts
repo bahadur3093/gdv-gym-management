@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import api from '@/utils/api'
-import { Payment, UPILinkResponse } from '@/types'
+import { Payment, UPILinkResponse, DuesResponse } from '@/types'
 
 export function usePayments() {
   const [payments, setPayments] = useState<Payment[]>([])
@@ -15,18 +15,34 @@ export function usePayments() {
 
   useEffect(() => { load() }, [load])
 
-  const getUPILink = async (month: string): Promise<UPILinkResponse> => {
-    const res = await api.get<UPILinkResponse>(`/payments/upi-link?month=${month}`)
+  const getUPILink = async (month: string, amount: number): Promise<UPILinkResponse> => {
+    const res = await api.get<UPILinkResponse>(`/payments/upi-link?month=${month}&amount=${amount}`)
     return res.data
   }
 
-  const submitPayment = async (utrNumber: string, month: string) => {
-    const res = await api.post('/payments/submit', { utrNumber, month })
+  const submitPayment = async (utrNumber: string, month: string, amount: number, reason?: string) => {
+    const res = await api.post('/payments/submit', { utrNumber, month, amount, reason })
     load()
     return res.data
   }
 
   return { payments, loading, getUPILink, submitPayment, reload: load }
+}
+
+export function useDues() {
+  const [data, setData]       = useState<DuesResponse | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  const load = useCallback(() => {
+    setLoading(true)
+    api.get<DuesResponse>('/payments/dues')
+      .then(res => setData(res.data))
+      .finally(() => setLoading(false))
+  }, [])
+
+  useEffect(() => { load() }, [load])
+
+  return { data, loading, reload: load }
 }
 
 export function usePendingPayments() {

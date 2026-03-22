@@ -28,8 +28,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-[100dvh] bg-[var(--bg)] flex items-center justify-center">
-      <div className="w-[80%] px-6 ">
+    <div className="min-h-[100dvh] bg-[var(--bg)] flex items-center justify-center px-6">
+      <div className="w-full">
         <div className="text-[48px] text-center mb-3">🏋️</div>
         <h1 className="font-['Open Sans'] text-[28px] font-extrabold text-center text-[var(--text)] mb-1.5">Society Gym</h1>
         <p className="text-[14px] text-[var(--text2)] text-center mb-8">Sign in to your account</p>

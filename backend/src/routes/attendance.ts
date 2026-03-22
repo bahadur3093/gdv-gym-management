@@ -1,11 +1,32 @@
-import { Router } from 'express'
-import { checkIn, getMyAttendance, getAllToday } from '../controllers/attendanceController.js'
-import { authenticate, requireAdmin } from '../middleware/auth.js'
+import { Router } from "express";
+import {
+  checkIn,
+  checkOut,
+  getCurrentlyIn,
+  getMyAttendance,
+  getHistory,
+  autoCheckout,
+} from "../controllers/attendanceController.js";
+import {
+  authenticate,
+  requireMember,
+  requireAdmin,
+} from "../middleware/auth.js";
 
-const router = Router()
+const router = Router();
 
-router.post('/checkin',  authenticate,               checkIn)
-router.get('/me',        authenticate,               getMyAttendance)
-router.get('/today',     authenticate, requireAdmin, getAllToday)
+// Member only — admins and watchmen don't use gym
+router.post("/checkin", authenticate, requireMember, checkIn);
+router.post("/checkout", authenticate, requireMember, checkOut);
+router.get("/me", authenticate, getMyAttendance);
 
-export default router
+// Anyone logged in can see who's in the gym
+router.get("/current", authenticate, getCurrentlyIn);
+
+// Admin full history
+router.get("/history", authenticate, requireAdmin, getHistory);
+
+// Cron endpoint — secured by x-cron-secret header, no JWT needed
+router.post("/auto-checkout", autoCheckout);
+
+export default router;

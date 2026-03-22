@@ -1,7 +1,7 @@
-import { Response, NextFunction } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import { AuthRequest, Member, MemberRole, MemberStatus } from '../types/index.js'
+import { Member, MemberRole, MemberStatus } from '../types/index.js'
 import supabase from '../config/supabase.js'
 import { sendNotification } from '../services/notificationService.js'
 
@@ -12,7 +12,7 @@ const signToken = (user: Pick<Member, 'id' | 'name' | 'role' | 'flat_number'>): 
     { expiresIn: '30d' }
   )
 
-export const register = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+export const register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { name, phone, flatNumber, tower, password } = req.body as {
       name: string; phone: string; flatNumber: string; tower?: string; password: string
@@ -35,7 +35,7 @@ export const register = async (req: AuthRequest, res: Response, next: NextFuncti
   } catch (err) { next(err) }
 }
 
-export const login = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+export const login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { phone, password } = req.body as { phone: string; password: string }
     const { data: user, error } = await supabase.from('members').select('*').eq('phone', phone).single<Member>()
@@ -49,7 +49,7 @@ export const login = async (req: AuthRequest, res: Response, next: NextFunction)
   } catch (err) { next(err) }
 }
 
-export const getMe = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+export const getMe = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { data, error } = await supabase
       .from('members')
@@ -61,7 +61,7 @@ export const getMe = async (req: AuthRequest, res: Response, next: NextFunction)
   } catch (err) { next(err) }
 }
 
-export const approveUser = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+export const approveUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { id } = req.params
     const { data, error } = await supabase.from('members').update({ status: 'active' }).eq('id', id).select('id, name, flat_number').single()
@@ -71,7 +71,7 @@ export const approveUser = async (req: AuthRequest, res: Response, next: NextFun
   } catch (err) { next(err) }
 }
 
-export const getMembers = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+export const getMembers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { status } = req.query as { status?: MemberStatus }
     let query = supabase.from('members').select('id, name, phone, flat_number, tower, role, status, current_streak, created_at').order('created_at', { ascending: false })
@@ -82,7 +82,7 @@ export const getMembers = async (req: AuthRequest, res: Response, next: NextFunc
   } catch (err) { next(err) }
 }
 
-export const saveFCMToken = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+export const saveFCMToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { token } = req.body as { token: string }
     if (!token) { res.status(400).json({ error: 'FCM token is required' }); return }

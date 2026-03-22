@@ -1,23 +1,24 @@
-// ── Member ─────────────────────────────────────────────────────
-export type MemberRole   = 'member' | 'admin'
+export type MemberRole   = 'member' | 'admin' | 'watchman'
 export type MemberStatus = 'pending' | 'active' | 'inactive'
+export type PaymentStatus  = 'pending' | 'approved' | 'rejected'
+export type IssueStatus    = 'open' | 'in_progress' | 'resolved'
+export type IssuePriority  = 'low' | 'medium' | 'high'
 
 export interface Member {
-  id:              string
-  name:            string
-  phone:           string
-  flat_number:     string
-  tower?:          string
-  role:            MemberRole
-  status:          MemberStatus
-  current_streak:  number
-  longest_streak:  number
-  fcm_token?:      string
-  created_at:      string
-  updated_at:      string
+  id:             string
+  name:           string
+  phone:          string
+  flat_number:    string
+  tower?:         string
+  role:           MemberRole
+  status:         MemberStatus
+  current_streak: number
+  longest_streak: number
+  fcm_token?:     string
+  created_at:     string
+  updated_at:     string
 }
 
-// ── Auth ───────────────────────────────────────────────────────
 export interface LoginResponse {
   token: string
   user:  Pick<Member, 'id' | 'name' | 'role'>
@@ -31,10 +32,12 @@ export interface RegisterPayload {
   password:    string
 }
 
-// ── Attendance ─────────────────────────────────────────────────
 export interface AttendanceRecord {
-  date:          string   // YYYY-MM-DD
-  checked_in_at: string   // ISO timestamp
+  date:            string
+  checked_in_at:   string
+  checked_out_at?: string
+  auto_checkout:   boolean
+  duration_mins?:  number
 }
 
 export interface AttendanceStats {
@@ -49,31 +52,58 @@ export interface AttendanceResponse {
   stats:      AttendanceStats
 }
 
-export interface TodayCheckin {
+export interface CurrentlyInMember {
   checked_in_at: string
   members: Pick<Member, 'id' | 'name' | 'flat_number' | 'tower'>
 }
 
-export interface TodayAttendance {
-  date:     string
-  count:    number
-  checkins: TodayCheckin[]
+export interface CurrentlyInResponse {
+  count:   number
+  members: CurrentlyInMember[]
 }
 
-// ── Payments ───────────────────────────────────────────────────
-export type PaymentStatus = 'pending' | 'approved' | 'rejected'
+export interface TodayCheckin {
+  checked_in_at:   string
+  checked_out_at?: string
+  duration_mins?:  number
+  auto_checkout:   boolean
+  members: Pick<Member, 'id' | 'name' | 'flat_number' | 'tower'>
+}
+
+export interface AttendanceHistoryResponse {
+  total:   number
+  records: TodayCheckin[]
+}
 
 export interface Payment {
   id:           string
   member_id:    string
-  month:        string   // YYYY-MM
+  month:        string
   amount:       number
   utr_number:   string
   status:       PaymentStatus
+  reason?:      string
+  is_partial:   boolean
   approved_by?: string
   approved_at?: string
   submitted_at: string
   members?:     Pick<Member, 'name' | 'flat_number' | 'tower'>
+}
+
+export interface DuesMonth {
+  month:      string
+  label:      string
+  fullAmount: number
+  paidAmount: number
+  status:     'paid' | 'partial' | 'unpaid'
+  remaining:  number
+  payments:   Payment[]
+}
+
+export interface DuesResponse {
+  dues:            DuesMonth[]
+  totalOutstanding: number
+  gymFee:          number
 }
 
 export interface UPILinkResponse {
@@ -82,10 +112,6 @@ export interface UPILinkResponse {
   amount: string
   month:  string
 }
-
-// ── Maintenance ────────────────────────────────────────────────
-export type IssueStatus   = 'open' | 'in_progress' | 'resolved'
-export type IssuePriority = 'low' | 'medium' | 'high'
 
 export interface MaintenanceIssue {
   id:          string
@@ -109,7 +135,6 @@ export interface ReportIssuePayload {
   priority:    IssuePriority
 }
 
-// ── API generic ────────────────────────────────────────────────
 export interface ApiError {
   error: string
 }
