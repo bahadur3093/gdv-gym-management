@@ -2,6 +2,14 @@ import { useState, useEffect, useCallback } from 'react'
 import api from '@/utils/api'
 import { Payment, UPILinkResponse, DuesResponse } from '@/types'
 
+interface MemberSummary {
+  totalPaid:        number
+  totalOutstanding: number
+  gymFee:           number
+  byYear:           [string, number][]
+  payments:         Payment[]
+}
+
 export function usePayments() {
   const [payments, setPayments] = useState<Payment[]>([])
   const [loading, setLoading]   = useState(true)
@@ -43,6 +51,19 @@ export function useDues() {
   useEffect(() => { load() }, [load])
 
   return { data, loading, reload: load }
+}
+
+export function useMemberSummary() {
+  const [data, setData]       = useState<MemberSummary | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    api.get<MemberSummary>('/logs/member-summary')
+      .then(res => setData(res.data))
+      .finally(() => setLoading(false))
+  }, [])
+
+  return { data, loading }
 }
 
 export function usePendingPayments() {

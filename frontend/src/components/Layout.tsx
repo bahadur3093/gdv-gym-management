@@ -16,6 +16,7 @@ const NAV_ITEMS: NavItem[] = [
   { path: '/maintenance', icon: '🔧', label: 'Issues',   roles: ['member', 'admin'] },
   { path: '/watchman',    icon: '🔑', label: 'Gym',      roles: ['watchman'] },
   { path: '/admin',       icon: '⚙️', label: 'Admin',   roles: ['admin'] },
+  { path: '/logs',        icon: '📋', label: 'Logs',    roles: ['admin'] },
   { path: '/profile',     icon: '👤', label: 'Profile',  roles: ['member', 'admin', 'watchman'] },
 ]
 

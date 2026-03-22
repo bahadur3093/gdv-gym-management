@@ -1,54 +1,63 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { useEffect, ReactNode } from 'react'
-import { AuthProvider, useAuth } from '@/context/AuthContext'
-import { ThemeProvider }         from '@/context/ThemeContext'
-import { ToastProvider, useToast } from '@/context/ToastContext'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, ReactNode } from "react";
+import { AuthProvider, useAuth } from "@/context/AuthContext";
+import { ThemeProvider } from "@/context/ThemeContext";
+import { ToastProvider, useToast } from "@/context/ToastContext";
 
-import LoginPage        from '@/pages/LoginPage'
-import RegisterPage     from '@/pages/RegisterPage'
-import HomePage         from '@/pages/HomePage'
-import AttendancePage   from '@/pages/AttendancePage'
-import PaymentsPage     from '@/pages/PaymentsPage'
-import MaintenancePage  from '@/pages/MaintenancePage'
-import ProfilePage      from '@/pages/ProfilePage'
-import AdminPage        from '@/pages/AdminPage'
-import WatchmanPage     from '@/pages/WatchmanPage'
-import Layout           from '@/components/Layout'
+import LoginPage from "@/pages/LoginPage";
+import RegisterPage from "@/pages/RegisterPage";
+import HomePage from "@/pages/HomePage";
+import AttendancePage from "@/pages/AttendancePage";
+import PaymentsPage from "@/pages/PaymentsPage";
+import MaintenancePage from "@/pages/MaintenancePage";
+import ProfilePage from "@/pages/ProfilePage";
+import AdminPage from "@/pages/AdminPage";
+import WatchmanPage from "@/pages/WatchmanPage";
+import AdminLogsPage from "@/pages/AdminLogsPage";
+import Layout from "@/components/Layout";
 
 function FullScreenLoader() {
   return (
-    <div style={{ minHeight: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
+    <div
+      style={{
+        minHeight: "100dvh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "var(--bg)",
+      }}
+    >
       <div className="spinner" style={{ width: 32, height: 32 }} />
     </div>
-  )
+  );
 }
 
 function PrivateRoute({ children }: { children: ReactNode }) {
-  const { user, loading } = useAuth()
-  if (loading) return <FullScreenLoader />
-  return user ? <>{children}</> : <Navigate to="/login" replace />
+  const { user, loading } = useAuth();
+  if (loading) return <FullScreenLoader />;
+  return user ? <>{children}</> : <Navigate to="/login" replace />;
 }
 
 function PublicRoute({ children }: { children: ReactNode }) {
-  const { user, loading } = useAuth()
-  if (loading) return <FullScreenLoader />
-  return user ? <Navigate to="/" replace /> : <>{children}</>
+  const { user, loading } = useAuth();
+  if (loading) return <FullScreenLoader />;
+  return user ? <Navigate to="/" replace /> : <>{children}</>;
 }
 
 function ForegroundNotifications() {
-  const { showToast } = useToast()
-  const { user }      = useAuth()
+  const { showToast } = useToast();
+  const { user } = useAuth();
 
   useEffect(() => {
-    if (!user) return
-    let unsub: (() => void) | undefined
-    import('@/utils/firebase').then(({ onForegroundMessage }) => {
-      unsub = onForegroundMessage((body) => showToast(body))
-    })
-    return () => unsub?.()
-  }, [user, showToast])
+    if (!user) return;
+    let unsub: (() => void) | undefined;
+    import("@/utils/firebase").then(({ onForegroundMessage }) => {
+      unsub = onForegroundMessage((body) => showToast(body));
+    });
+    return () => unsub?.();
+  }, [user, showToast]);
 
-  return null
+  return null;
 }
 
 export default function App() {
@@ -59,17 +68,38 @@ export default function App() {
           <BrowserRouter>
             <ForegroundNotifications />
             <Routes>
-              <Route path="/login"    element={<PublicRoute><LoginPage /></PublicRoute>} />
-              <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
+              <Route
+                path="/login"
+                element={
+                  <PublicRoute>
+                    <LoginPage />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="/register"
+                element={
+                  <PublicRoute>
+                    <RegisterPage />
+                  </PublicRoute>
+                }
+              />
 
-              <Route element={<PrivateRoute><Layout /></PrivateRoute>}>
-                <Route path="/"            element={<HomePage />} />
-                <Route path="/attendance"  element={<AttendancePage />} />
-                <Route path="/payments"    element={<PaymentsPage />} />
+              <Route
+                element={
+                  <PrivateRoute>
+                    <Layout />
+                  </PrivateRoute>
+                }
+              >
+                <Route path="/" element={<HomePage />} />
+                <Route path="/attendance" element={<AttendancePage />} />
+                <Route path="/payments" element={<PaymentsPage />} />
                 <Route path="/maintenance" element={<MaintenancePage />} />
-                <Route path="/profile"     element={<ProfilePage />} />
-                <Route path="/admin"       element={<AdminPage />} />
-                <Route path="/watchman"    element={<WatchmanPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/admin" element={<AdminPage />} />
+                <Route path="/watchman" element={<WatchmanPage />} />
+                <Route path="/logs" element={<AdminLogsPage />} />
               </Route>
 
               <Route path="*" element={<Navigate to="/" replace />} />
@@ -78,5 +108,5 @@ export default function App() {
         </ToastProvider>
       </AuthProvider>
     </ThemeProvider>
-  )
+  );
 }
