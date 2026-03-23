@@ -6,6 +6,7 @@ import {
   approveUser,
   getMembers,
   saveFCMToken,
+  forgotPassword,
 } from '../controllers/authController.js'
 import { authenticate, requireAdmin } from '../middleware/auth.js'
 
@@ -17,5 +18,6 @@ router.get('/me',                authenticate, getMe)
 router.post('/fcm-token',        authenticate, saveFCMToken)
 router.get('/members',           authenticate, requireAdmin, getMembers)
 router.patch('/:id/approve',     authenticate, requireAdmin, approveUser)
+router.post('/forgot-password',                             forgotPassword)
 
 export default router

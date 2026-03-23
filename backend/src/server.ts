@@ -1,57 +1,81 @@
-import express from 'express'
-import cors from 'cors'
-import helmet from 'helmet'
-import morgan from 'morgan'
-import rateLimit from 'express-rate-limit'
-import routes from './routes/index.js'
-import { errorHandler } from './middleware/errorHandler.js'
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import morgan from "morgan";
+import rateLimit from "express-rate-limit";
+import routes from "./routes/index.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 
-const app  = express()
-const PORT = process.env.PORT || 4000
+const app = express();
+const PORT = process.env.PORT || 4000;
 
 // Security
-app.use(helmet())
-app.use(cors({
-  origin: process.env.FRONTEND_URL || '*',
-  credentials: true,
-}))
+app.use(helmet());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || "*",
+    credentials: true,
+  }),
+);
 
-// Rate limiting
-app.use('/api/', rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: { error: 'Too many requests, please try again later.' },
-}))
+// Rate limiting — general
+app.use(
+  "/api/",
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    message: { error: "Too many requests, please try again later." },
+  }),
+);
+
+// Stricter rate limit on auth routes — prevents brute force
+app.use(
+  "/api/auth/login",
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10, // 10 login attempts per 15 min per IP
+    message: { error: "Too many login attempts. Please wait 15 minutes." },
+  }),
+);
+
+app.use(
+  "/api/auth/forgot-password",
+  rateLimit({
+    windowMs: 60 * 60 * 1000,
+    max: 5, // 5 reset attempts per hour per IP
+    message: { error: "Too many reset attempts. Please wait an hour." },
+  }),
+);
 
 // Parsing
-app.use(express.json({ limit: '2mb' }))
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json({ limit: "2mb" }));
+app.use(express.urlencoded({ extended: true }));
 
 // Logging
-if (process.env.NODE_ENV !== 'test') {
-  app.use(morgan('dev'))
+if (process.env.NODE_ENV !== "test") {
+  app.use(morgan("dev"));
 }
 
 // Health check — cron-job.org pings this to keep Render alive
-app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() })
-})
+app.get("/health", (_req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
 
 // API routes
-app.use('/api', routes)
+app.use("/api", routes);
 
 // 404
 app.use((_req, res) => {
-  res.status(404).json({ error: 'Route not found' })
-})
+  res.status(404).json({ error: "Route not found" });
+});
 
 // Global error handler
-app.use(errorHandler)
+app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log(`\n🏋️  Society Gym API running on port ${PORT}`)
-  console.log(`   Environment : ${process.env.NODE_ENV}`)
-  console.log(`   Health check: http://localhost:${PORT}/health\n`)
-})
+  console.log(`\n🏋️  Society Gym API running on port ${PORT}`);
+  console.log(`   Environment : ${process.env.NODE_ENV}`);
+  console.log(`   Health check: http://localhost:${PORT}/health\n`);
+});
 
-export default app
+export default app;

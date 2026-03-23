@@ -72,6 +72,10 @@ export default function LoginPage() {
           </button>
         </form>
 
+        <div className="text-center mt-2 mb-1">
+          <Link to="/forgot-password" style={{ fontSize: 13, color: 'var(--text2)' }}>Forgot password?</Link>
+        </div>
+
         <p className="text-[13px] text-[var(--text2)] text-center mt-6">
           New member? <Link className="text-[var(--accent)] font-semibold" to="/register">Register here</Link>
         </p>

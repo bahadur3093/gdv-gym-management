@@ -14,6 +14,7 @@ import ProfilePage from "@/pages/ProfilePage";
 import AdminPage from "@/pages/AdminPage";
 import WatchmanPage from "@/pages/WatchmanPage";
 import AdminLogsPage from "@/pages/AdminLogsPage";
+import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
 import Layout from "@/components/Layout";
 
 function FullScreenLoader() {
@@ -81,6 +82,14 @@ export default function App() {
                 element={
                   <PublicRoute>
                     <RegisterPage />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="/forgot-password"
+                element={
+                  <PublicRoute>
+                    <ForgotPasswordPage />
                   </PublicRoute>
                 }
               />
